@@ -16,7 +16,8 @@ function Timeline() {
 
 Timeline.prototype = {
 	init() {
-		this.slideLength = this.$track.children().length;
+		this.slideLength = this.$trackItems.length;
+		this.intermediateTrackX = null;
 		this.initEvents();
 		this.update();
 	},
@@ -32,12 +33,12 @@ Timeline.prototype = {
 			self.next();
 		});
 
-		this.$track.on('mousedown', e => {
+		this.$trackContainer.on('mousedown', e => {
 			this.draggingStartX = e.pageX || e.clientX;
 			this.turnOnDragging();
 		});
 
-		this.$track.on('mouseup mouseleave', () => {
+		this.$trackContainer.on('mouseup mouseleave', () => {
 			this.turnOffDragging();
 		});
 	},
@@ -46,7 +47,7 @@ Timeline.prototype = {
 		this.$container.addClass('_dragging');
 		TweenMax.to(this.$trackContainer, 0.85, { scale: 0.8 });
 		var self = this;
-		this.$track.on('mousemove.timeline', function(e) {
+		this.$track.on('mousemove.timeline-dragging', function(e) {
 			self.mouseMoveHandler.call(self, e);
 		});
 	},
@@ -56,9 +57,13 @@ Timeline.prototype = {
 			this.trackX = this.intermediateTrackX;
 		}
 		this.intermediateTrackX = null;
+		if (this.intermediateIndex !== null) {
+			this.setSlide(this.intermediateIndex);
+		}
+		this.intermediateIndex = null;
 		this.$container.removeClass('_dragging');
 		TweenMax.to(this.$trackContainer, 0.5, { scale: 1 });
-		this.$track.off('.timeline');
+		this.$track.off('.timeline-dragging');
 	},
 
 	mouseMoveHandler: function(e) {
@@ -68,25 +73,47 @@ Timeline.prototype = {
 			x: newX,
 		});
 		this.intermediateTrackX = newX;
+		this.onDragUpdate(newX);
+	},
+
+	onDragUpdate: function(x) {
+		var index;
+		switch (true) {
+			case x >= 0:
+				index = 0;
+				break;
+			case x <= -(this.slideLength - 1) * this.trackItemWidth:
+				index = this.slideLength - 1;
+				break;
+			default:
+				index = Math.abs(Math.round(x / this.trackItemWidth));
+		}
+		this.intermediateIndex = index;
+		this.setCurrentItem(index);
 	},
 
 	update: function() {
-		this.trackElementWidth = this.$trackItems.first().outerWidth(true);
+		this.trackItemWidth = this.$trackItems.first().outerWidth(true);
 
 		this.setSlide(this.defaultIndex, true);
 	},
 
-	setSlide: function(index, immediately) {
-		this.trackX = -index * this.trackElementWidth;
-		TweenMax.to(this.$track, immediately ? 0 : 0.35, { x: this.trackX });
-
+	setCurrentItem: function(index) {
 		var $currentItem = this.$trackItems.eq(index);
 		this.$trackItems.removeClass('_active');
 		$currentItem.addClass('_active');
+		this.$currentItem = $currentItem;
+	},
 
-		var value1 = $currentItem.data('timeline-item-value1');
+	setSlide: function(index, immediately) {
+		this.trackX = -index * this.trackItemWidth;
+		TweenMax.to(this.$track, immediately ? 0 : 0.35, { x: this.trackX });
+
+		this.setCurrentItem(index);
+
+		var value1 = this.$currentItem.data('timeline-item-value1');
 		this.$value1.text(value1);
-		var value2 = $currentItem.data('timeline-item-value2');
+		var value2 = this.$currentItem.data('timeline-item-value2');
 		this.$value2.text(value2);
 
 		if (index === this.slideLength - 1) {
