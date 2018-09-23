@@ -13,7 +13,6 @@
 <body>
 
 <div class="wrapper">
-
 	<div class="interactive-timeline" data-timeline data-timeline-default-index="0">
 		<div class="interactive-timeline__title">
 			our history
@@ -107,15 +106,15 @@
 	<div class="interactive-stats">
 		<div class="interactive-wrapper">
 			<div class="interactive-stat-item">
-				<div class="stat-title">101</div>
+				<div class="stat-title" data-number-animation>101</div>
 				<div class="stat-body">employees</div>
 			</div>
 			<div class="interactive-stat-item">
-				<div class="stat-title">172.5</div>
+				<div class="stat-title" data-number-animation>172.5</div>
 				<div class="stat-body">training hours given to employees</div>
 			</div>
 			<div class="interactive-stat-item">
-				<div class="stat-title">1534 +</div>
+				<div class="stat-title"><span data-number-animation>1534</span> +</div>
 				<div class="stat-body">happy customers</div>
 			</div>
 		</div>
@@ -204,5 +203,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/utils/Draggable.min.js"></script>
 <script src="./scripts/Timeline.js"></script>
+<script src="./scripts/NumberAnimation.js"></script>
 </body>
 </html>
