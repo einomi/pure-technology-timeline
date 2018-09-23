@@ -1,0 +1,13 @@
+@font-face {
+	font-family: InterstatePlus;
+	src: url(../fonts/InterstatePlus-Light.woff) format('woff');
+	font-weight: 300;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: Interstate;
+	src: url(../fonts/Interstate-Regular.woff) format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
