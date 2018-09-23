@@ -52,6 +52,7 @@ Timeline.prototype = {
 	},
 
 	turnOffDragging: function() {
+		this.trackX = this.intermediateTrackX;
 		this.$container.removeClass('_dragging');
 		TweenMax.to(this.$trackContainer, 0.5, { scale: 1 });
 		this.$track.off('.timeline');
@@ -60,8 +61,10 @@ Timeline.prototype = {
 	mouseMoveHandler: function(e) {
 		var delta = (e.pageX || e.clientX) - this.draggingStartX;
 		var newX = this.trackX + delta;
-		TweenMax.to(this.$track, 0.05, { x: newX });
-		this.trackX = newX;
+		TweenMax.to(this.$track, 0.05, {
+			x: newX,
+		});
+		this.intermediateTrackX = newX;
 	},
 
 	update: function() {
