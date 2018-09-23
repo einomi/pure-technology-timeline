@@ -4,6 +4,20 @@
 	overflow: hidden;
 }
 
+.interactive-timeline._start .timeline-slider__prev {
+	opacity: 0;
+	visibility: hidden;
+}
+
+.interactive-timeline._end .timeline-slider__next {
+	opacity: 0;
+	visibility: hidden;
+}
+
+.interactive-timeline._dragging .track-line {
+	cursor: grabbing;
+}
+
 .interactive-timeline__title {
 	text-align: center;
 	font-size: 1.8rem;
@@ -48,7 +62,58 @@
 }
 
 .timeline-slider__track-line {
-	margin-top: 10vw;
+	position: absolute;
+    top: 22.5vw;
+	left: 0;
+	width: 100%;
+}
+
+.track-line {
+	cursor: grab;
+}
+
+.track-line__inner {
+	transform: translate3d(0, 0, 0);
+	position: relative;
+	left: 50%;
+}
+
+.track-line__container {
+	position: relative;
+	font-size: 0;
+	white-space: nowrap;
+	will-change: transform;
+}
+
+.track-line__value {
+	display: inline-block;
+	font-size: 200px;
+	vertical-align: top;
+	width: 2.7em;
+	text-align: center;
+	margin-right: 200px;
+	transform: translateX(-50%);
+}
+
+.track-line__value:last-child {
+	margin-right: 0;
+}
+
+.track-line__value:before {
+	content: '';
+	display: block;
+	position: absolute;
+	top: -0.3em;
+	left: 50%;
+	margin-left: -12px;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background-color: #72f7ff;
+}
+
+.track-line__value._active:before {
+	transform: translateY(0.1em) scale(4);
 }
 
 .timeline-slider__info {
@@ -135,50 +200,6 @@
 }
 
 .timeline-slider__next:before {
-}
-
-.track-line {
-	position: relative;
-	transform: translate3d(0, 0, 0);
-	left: 50%;
-}
-
-.track-line__container {
-	position: relative;
-	font-size: 0;
-	white-space: nowrap;
-	will-change: transform;
-}
-
-.track-line__value {
-	display: inline-block;
-	font-size: 200px;
-	vertical-align: top;
-	width: 2.7em;
-	text-align: center;
-	margin-right: 200px;
-	transform: translateX(-50%);
-}
-
-.track-line__value:last-child {
-	margin-right: 0;
-}
-
-.track-line__value:before {
-	content: '';
-	display: block;
-	position: absolute;
-	top: -0.3em;
-	left: 50%;
-	margin-left: -12px;
-	width: 12px;
-	height: 12px;
-	border-radius: 50%;
-	background-color: #72f7ff;
-}
-
-.track-line__value._active:before {
-	transform: translateY(0.1em) scale(4);
 }
 
 .timeline-carousel {

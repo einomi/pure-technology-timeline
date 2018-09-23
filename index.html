@@ -25,20 +25,22 @@
 				<div class="timeline-slider__line"></div>
 			</div>
 			<div class="timeline-slider__track-line track-line">
-				<div class="track-line__container" data-timeline-track>
-					<div class="track-line__value">2005</div>
-					<div class="track-line__value">2008</div>
-					<div class="track-line__value">2010</div>
-					<div class="track-line__value">2011</div>
-					<div class="track-line__value">2016</div>
+				<div class="track-line__inner">
+					<div class="track-line__container" data-timeline-track>
+						<div class="track-line__value" data-timeline-bottom-value1="£1.97m" data-timeline-item-value2="£3.27m">2005</div>
+						<div class="track-line__value" data-timeline-item-value1="£41.12m" data-timeline-item-value2="£13.70m">2008</div>
+						<div class="track-line__value" data-timeline-item-value1="£1.97m" data-timeline-item-value2="£0.21m">2010</div>
+						<div class="track-line__value" data-timeline-item-value1="£4.86m" data-timeline-item-value2="£5.35m">2011</div>
+						<div class="track-line__value" data-timeline-item-value1="£10.11m" data-timeline-item-value2="£894.34m">2016</div>
+					</div>
 				</div>
 			</div>
 			<div class="timeline-slider__info">
 				<div class="timeline-slider__info-item">
-					<div class="timeline-slider__info-item-value">£1.97m</div>
+					<div class="timeline-slider__info-item-value" data-timeline-item-value1-container></div>
 				</div>
 				<div class="timeline-slider__info-item">
-					<div class="timeline-slider__info-item-value">£3.27m</div>
+					<div class="timeline-slider__info-item-value" data-timeline-item-value2-container></div>
 				</div>
 			</div>
 			<div class="timeline-slider__controls">
@@ -198,6 +200,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/utils/Draggable.min.js"></script>
 <script src="./scripts/Timeline.js"></script>
 </body>
 </html>
