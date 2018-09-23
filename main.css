@@ -1,0 +1,322 @@
+.interactive-timeline {
+}
+.interactive-timeline__title {
+	text-align: center;
+	font-size: 1.8rem;
+	color: #ab35e5;
+	padding-top: 4em;
+	font-family: 'Interstate', sans-serif;
+	margin-bottom: 1em;
+}
+.interactive-timeline__slider {
+	display: flex;
+	align-items: center;
+	height: 655px;
+	background-image: url('./img/slanted-bg.png');
+	background-size: cover;
+}
+.interactive-timeline__track-line {
+	display: inline-block;
+}
+
+.track-line {
+	font-size: 0;
+	white-space: nowrap;
+}
+.track-line__value {
+	display: inline-block;
+	font-size: 200px;
+	color: #fff;
+	vertical-align: top;
+	margin: 0 100px;
+}
+
+.static-header {
+	height: 500px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	background-image: url('/_img/about-contact-bg.png');
+	background-size: cover;
+	background-position: top center;
+	text-align: center;
+}
+
+@media (max-width: 1149px) {
+	.static-header {
+		margin-top: -1em;
+	}
+}
+
+.static-header .static-header__careers-text h1 {
+	color: #ffffff;
+	font-size: 2.6rem !important;
+	padding-bottom: 10px;
+}
+
+.static-header .static-header__careers-text h2 {
+	color: #ffffff;
+	font-size: 1.7rem !important;
+	padding-bottom: 15px;
+}
+
+.static-header__careers-text {
+	padding-bottom: 100px;
+	text-align: center;
+}
+
+.slice {
+	width: 100%;
+	background-image: url('/_img/slice-up.svg');
+	height: 12em;
+	background-size: cover;
+	background-position: center center;
+	margin-top: -11em;
+	content: '';
+}
+
+.about-intro {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 800px;
+	margin: 0 auto;
+	background: #ffffff;
+	border-radius: 6px;
+	padding: 50px;
+	box-shadow: 0px 10px 36px rgba(0, 0, 0, 0.08);
+	margin-top: -12em;
+}
+
+.about-title {
+	font-size: 24px;
+	line-height: 34px;
+	padding-bottom: 15px;
+	font-family: 'Interstate', sans-serif;
+}
+
+.about-body {
+	line-height: 29px;
+	font-size: 16px;
+	opacity: 0.7;
+}
+
+.dots {
+	width: 50px;
+	height: auto;
+	margin: 30px 0px 0px 0px;
+}
+
+.interactive-img {
+	max-width: 100%;
+	height: auto;
+}
+
+.about-values-title-main {
+	padding: 2em 0em;
+	font-family: 'SF Compact', sans-serif;
+	font-style: normal;
+	font-weight: normal;
+	line-height: normal;
+	font-size: 24px;
+	text-align: center;
+	color: #ab35e5;
+}
+
+.about-values-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	width: 1100px;
+	margin: 0 auto;
+}
+
+.about-values-item {
+	width: 50%;
+	padding: 2em 4em;
+}
+
+.about-values-title {
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+	font-size: 36px;
+	font-family: 'Interstate', sans-serif;
+	color: #2d3030;
+	padding-bottom: 20px;
+}
+
+.about-values-body {
+	opacity: 0.7;
+}
+
+.interactive-stats {
+	background: rgba(61, 58, 99, 0.03);
+	padding: 5em 0em;
+}
+
+.interactive-wrapper {
+	display: flex;
+	justify-content: space-around;
+	align-items: baseline;
+	flex-wrap: wrap;
+}
+
+.stat-title {
+	color: #a3a4a6;
+	font-size: 3rem !important;
+	font-family: 'Interstate', sans-serif;
+	padding-bottom: 15px;
+	text-align: center;
+}
+
+.stat-body {
+	font-size: 1rem !important;
+	color: #ab35e5;
+	font-family: 'Interstate', sans-serif;
+	width: 150px;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.accreditations {
+	background-image: url('../_img/service-backgrounds/background-security.png');
+	padding: 6em 0em;
+}
+
+.accreditations-wrapper {
+	max-width: 900px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.accreditations-title {
+	font-size: 1.8rem !important;
+	font-family: 'Interstate', sans-serif;
+	color: #ffffff;
+}
+
+.accreditations-wrapper p {
+	font-size: 1.3rem !important;
+	font-family: 'SF Compact', sans-serif !important;
+	font-weight: 400;
+	color: #ffffff;
+	opacity: 0.7;
+	padding-top: 15px;
+}
+
+.accreditations-wrapper img {
+	margin-top: 50px;
+	width: 600px;
+	height: auto;
+}
+
+.leadership-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	max-width: 1200px;
+	margin: 0 auto;
+	flex-wrap: wrap;
+}
+
+.leadership-item {
+	width: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 30px 20px;
+}
+
+.leadership {
+	max-width: 85%;
+	margin: 0 auto;
+	padding: 5em 0em;
+}
+
+@media (max-width: 1100px) {
+	.accreditations-wrapper {
+		max-width: 85%;
+	}
+	.about-values-wrapper {
+		max-width: 85%;
+	}
+
+	.leadership-wrapper {
+		max-width: 85%;
+	}
+}
+
+.leadership-title {
+	text-align: center;
+	color: #ab35e5;
+	font-size: 1.8rem !important;
+	font-family: 'Interstate', sans-serif;
+	padding-bottom: 30px;
+}
+
+.leadership-image img {
+	width: 100px;
+	height: auto;
+	margin-right: 20px;
+}
+
+.leadership-name {
+	line-height: 36px;
+	font-size: 26px;
+	font-family: 'Interstate', sans-serif;
+	padding: 10px 0px;
+	color: #2d3030;
+}
+
+.leadership-job-title {
+	font-size: 18px;
+	font-family: 'Interstate', sans-serif;
+	color: #ab35e5;
+	line-height: 22px;
+	padding: 5px 0px;
+}
+
+.leadership-body {
+	line-height: 22px;
+	font-size: 16px;
+	color: rgba(45, 48, 48, 0.8);
+	padding: 10px 0px;
+	font-family: 'SF Compact', sans-serif !important;
+}
+
+@media (max-width: 900px) {
+	.interactive-stat-item {
+		width: 100%;
+		padding: 30px 0px;
+	}
+	.stat-body {
+		padding-bottom: 15px;
+	}
+	.about-values-item {
+		width: 100%;
+	}
+
+	.leadership-item {
+		width: 100%;
+		padding: 20px 0px;
+	}
+}
+
+.careers-bg-2 {
+	background-image: url('/_img/careers-images/video-slice.png');
+	background-size: cover;
+	padding: 3em 0em;
+}
+
+.about-title-video {
+	color: #ab35e5;
+	font-size: 1.6rem;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+	font-family: 'interstate', sans-serif;
+}
