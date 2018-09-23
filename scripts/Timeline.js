@@ -37,7 +37,7 @@ Timeline.prototype = {
 			this.turnOnDragging();
 		});
 
-		this.$track.on('mouseup', () => {
+		this.$track.on('mouseup mouseleave', () => {
 			this.turnOffDragging();
 		});
 	},
@@ -52,7 +52,10 @@ Timeline.prototype = {
 	},
 
 	turnOffDragging: function() {
-		this.trackX = this.intermediateTrackX;
+		if (this.intermediateTrackX !== null) {
+			this.trackX = this.intermediateTrackX;
+		}
+		this.intermediateTrackX = null;
 		this.$container.removeClass('_dragging');
 		TweenMax.to(this.$trackContainer, 0.5, { scale: 1 });
 		this.$track.off('.timeline');
