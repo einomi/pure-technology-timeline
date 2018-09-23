@@ -63,7 +63,7 @@
 
 .timeline-slider__track-line {
 	position: absolute;
-    top: 22.5vw;
+	top: 22.5vw;
 	left: 0;
 	width: 100%;
 }
@@ -203,6 +203,11 @@
 }
 
 .timeline-carousel {
+    position: relative;
+    left: 50%;
+}
+
+.timeline-carousel__inner {
 	display: flex;
 	align-items: center;
 	height: 180px;
@@ -213,6 +218,12 @@
 .timeline-carousel__group {
 	display: flex;
 	margin-right: 150px;
+	opacity: 0.2;
+    transform: translateX(-50%);
+}
+
+.timeline-carousel__group._active {
+	opacity: 1;
 }
 
 .timeline-carousel__group:last-child {

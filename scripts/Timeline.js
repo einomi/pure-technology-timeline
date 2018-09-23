@@ -3,7 +3,8 @@ function Timeline() {
 	this.$track = this.$container.find('[data-timeline-track]');
 	this.$trackContainer = this.$track.parent().parent();
 	this.$trackItems = this.$track.children();
-	this.$carouselContainer = this.$container.find('[data-timeline-carousel]');
+	this.$carousel = this.$container.find('[data-timeline-carousel]');
+	this.$carouselItems = this.$carousel.children();
 	this.$value1 = this.$container.find('[data-timeline-item-value1-container]');
 	this.$value2 = this.$container.find('[data-timeline-item-value2-container]');
 	this.$prevButton = this.$container.find('[data-timeline-prev]');
@@ -20,6 +21,13 @@ Timeline.prototype = {
 		this.intermediateTrackX = null;
 		this.initEvents();
 		this.update();
+	},
+
+	update: function() {
+		this.trackItemWidth = this.$trackItems.first().outerWidth(true);
+		this.carouselGroupWidth = this.$carouselItems.first().outerWidth(true);
+
+		this.setSlide(this.defaultIndex, true);
 	},
 
 	initEvents() {
@@ -89,31 +97,42 @@ Timeline.prototype = {
 				index = Math.abs(Math.round(x / this.trackItemWidth));
 		}
 		this.intermediateIndex = index;
-		this.setCurrentItem(index);
+		this.setCurrentTrackItem(index);
 	},
 
-	update: function() {
-		this.trackItemWidth = this.$trackItems.first().outerWidth(true);
-
-		this.setSlide(this.defaultIndex, true);
-	},
-
-	setCurrentItem: function(index) {
+	setCurrentTrackItem: function(index) {
 		var $currentItem = this.$trackItems.eq(index);
 		this.$trackItems.removeClass('_active');
 		$currentItem.addClass('_active');
-		this.$currentItem = $currentItem;
+		this.$trackCurrentItem = $currentItem;
+	},
+
+	setCurrentCarouselItem: function(index) {
+		var $currentItem = this.$carouselItems.eq(index);
+		this.$carouselItems.removeClass('_active');
+		$currentItem.addClass('_active');
+		this.$carouselCurrentItem = $currentItem;
 	},
 
 	setSlide: function(index, immediately) {
+		var self = this;
+
 		this.trackX = -index * this.trackItemWidth;
-		TweenMax.to(this.$track, immediately ? 0 : 0.35, { x: this.trackX });
+		this.carouselX = -index * this.carouselGroupWidth;
 
-		this.setCurrentItem(index);
+		TweenMax.to(this.$track, immediately ? 0 : 0.35, {
+			x: this.trackX,
+			onComplete: function() {
+				self.setCurrentCarouselItem(index);
+				TweenMax.to(self.$carousel, immediately ? 0 : 0.35, { x: self.carouselX });
+			},
+		});
 
-		var value1 = this.$currentItem.data('timeline-item-value1');
+		this.setCurrentTrackItem(index);
+
+		var value1 = this.$trackCurrentItem.data('timeline-item-value1');
 		this.$value1.text(value1);
-		var value2 = this.$currentItem.data('timeline-item-value2');
+		var value2 = this.$trackCurrentItem.data('timeline-item-value2');
 		this.$value2.text(value2);
 
 		if (index === this.slideLength - 1) {
