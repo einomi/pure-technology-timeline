@@ -7,6 +7,7 @@ function Timeline() {
 	this.$carouselItems = this.$carousel.children();
 	this.$value1 = this.$container.find('[data-timeline-item-value1-container]');
 	this.$value2 = this.$container.find('[data-timeline-item-value2-container]');
+	this.$values = this.$value1.add(this.$value2);
 	this.$prevButton = this.$container.find('[data-timeline-prev]');
 	this.$nextButton = this.$container.find('[data-timeline-next]');
 	this.$linesContainer = this.$container.find('[data-timeline-lines]');
@@ -57,7 +58,7 @@ Timeline.prototype = {
 	turnOnDragging: function() {
 		var self = this;
 		this.$container.addClass('_dragging');
-		TweenMax.to(this.$trackContainer, 0.85, { scale: 0.8 });
+		TweenMax.to(this.$trackContainer, 0.85, { scale: 0.7 });
 
 		this.$lines.each(function(index, element) {
 			var $line = $(element);
@@ -66,7 +67,7 @@ Timeline.prototype = {
 		this.$track.on('mousemove.timeline-dragging', function(e) {
 			self.mouseMoveHandler.call(self, e);
 		});
-		TweenMax.to(this.$background, 1.35, { scale: 1 });
+		TweenMax.to(this.$background, 0.85, { scale: 1 });
 	},
 
 	turnOffDragging: function() {
@@ -133,11 +134,24 @@ Timeline.prototype = {
 		this.trackX = -index * this.trackItemWidth;
 		this.carouselX = -index * this.carouselGroupWidth;
 
-		TweenMax.to(this.$track, immediately ? 0 : 0.35, {
+		TweenMax.to(this.$track, immediately ? 0 : 0.75, {
 			x: this.trackX,
-			ease: Power1.easeOut,
-			onComplete: function() {},
+			ease: Power2.easeOut,
 		});
+
+		if (index === this.currentIndex) {
+			return;
+		}
+
+		if (!immediately) {
+			TweenMax.to(this.$values, 0.2, { y: -40, alpha: 0 });
+			TweenMax.fromTo(
+				this.$values,
+				immediately ? 0 : 0.35,
+				{ y: 40 },
+				{ y: 0, alpha: 1, delay: 0.25, ease: Power1.easeOut }
+			);
+		}
 
 		TweenMax.to(this.$carousel, immediately ? 0 : 0.5, {
 			x: this.carouselX,
