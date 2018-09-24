@@ -82,7 +82,7 @@ Timeline.prototype = {
 		this.$container.removeClass('_dragging');
 		TweenMax.to(this.$trackContainer, 0.35, { scale: 1 });
 		this.$lines.each(function(index, element) {
-			TweenMax.to($(element), 0.5, { scaleY: 1 });
+			TweenMax.to($(element), 0.35, { scaleY: 1 });
 		});
 		this.$track.off('.timeline-dragging');
 		TweenMax.to(this.$background, 0.35, { scale: 1.15, ease: Power1.easeOut });
