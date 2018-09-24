@@ -1,14 +1,10 @@
 {
-  "dependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "prettier": "^1.14.3"
-  },
+  "dependencies": {},
   "scripts": {
     "start": "browser-sync start --server --files \"./*.html,./scripts/*.js,./styles/*.css\" --port 3001"
   },
   "devDependencies": {
-    "browser-sync": "^2.24.7"
+    "browser-sync": "^2.24.7",
+    "prettier": "^1.14.3"
   }
 }

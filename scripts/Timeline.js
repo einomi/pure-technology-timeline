@@ -1,5 +1,29 @@
+function debounce(func, wait, immediate) {
+	var timeout;
+	wait = wait || 100;
+
+	return function() {
+		var context = this,
+			args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) {
+				func.apply(context, args);
+			}
+		};
+
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) {
+			func.apply(context, args);
+		}
+	};
+}
+
 function Timeline() {
 	this.$container = $('[data-timeline]');
+	this.$draggingArea = this.$container.find('[data-timeline-dragging-area]');
 	this.$track = this.$container.find('[data-timeline-track]');
 	this.$trackContainer = this.$track.parent().parent();
 	this.$trackItems = this.$track.children();
@@ -22,7 +46,7 @@ function Timeline() {
 Timeline.prototype = {
 	init() {
 		this.slideLength = this.$trackItems.length;
-		this.intermediateTrackX = null;
+		this.trackIntermediateX = null;
 		this.initEvents();
 		this.update();
 	},
@@ -37,25 +61,32 @@ Timeline.prototype = {
 	initEvents() {
 		var self = this;
 
-		this.$prevButton.on('click', function() {
+		this.$prevButton.on('click', function(e) {
+			e.stopPropagation();
 			self.prev();
 		});
 
-		this.$nextButton.on('click', function() {
+		this.$nextButton.on('click', function(e) {
+			e.stopPropagation();
 			self.next();
 		});
 
-		this.$trackContainer.on('mousedown', e => {
-			this.draggingStartX = e.pageX || e.clientX;
-			this.turnOnDragging();
+		this.$draggingArea.on('mousedown', function(e) {
+			self.draggingStartX = e.pageX || e.clientX;
+			self.turnOnDragging();
 		});
 
-		this.$trackContainer.on('mouseup mouseleave', () => {
-			this.turnOffDragging();
+		this.$draggingArea.on('mouseup mouseleave', function() {
+			self.turnOffDragging();
 		});
+
+		$(window).on('resize', debounce(function() {
+		    self.update();
+        }, 60));
 	},
 
 	turnOnDragging: function() {
+		this.dragging = true;
 		var self = this;
 		this.$container.addClass('_dragging');
 		TweenMax.to(this.$trackContainer, 0.85, { scale: 0.7 });
@@ -64,17 +95,25 @@ Timeline.prototype = {
 			var $line = $(element);
 			TweenMax.to($line, 0.65, { scaleY: 0.98 - 0.15 * index, ease: Power1.easeIn });
 		});
-		this.$track.on('mousemove.timeline-dragging', function(e) {
+
+		var mouseMoveHandler = function(e) {
 			self.mouseMoveHandler.call(self, e);
-		});
+		};
+
+		this.$draggingArea.on('mousemove.timeline-dragging', mouseMoveHandler);
+
 		TweenMax.to(this.$background, 0.85, { scale: 1 });
 	},
 
 	turnOffDragging: function() {
-		if (this.intermediateTrackX !== null) {
-			this.trackX = this.intermediateTrackX;
+		if (!this.dragging) {
+			return;
 		}
-		this.intermediateTrackX = null;
+		this.dragging = false;
+		if (this.trackIntermediateX !== null) {
+			this.trackX = this.trackIntermediateX;
+		}
+		this.trackIntermediateX = null;
 		if (this.intermediateIndex !== null) {
 			this.setSlide(this.intermediateIndex);
 		}
@@ -84,17 +123,17 @@ Timeline.prototype = {
 		this.$lines.each(function(index, element) {
 			TweenMax.to($(element), 0.35, { scaleY: 1 });
 		});
-		this.$track.off('.timeline-dragging');
+		this.$draggingArea.off('.timeline-dragging');
 		TweenMax.to(this.$background, 0.35, { scale: 1.15, ease: Power1.easeOut });
 	},
 
 	mouseMoveHandler: function(e) {
 		var delta = (e.pageX || e.clientX) - this.draggingStartX;
 		var newX = this.trackX + delta;
-		TweenMax.to(this.$track, 0.05, {
+		TweenMax.set(this.$track, {
 			x: newX,
 		});
-		this.intermediateTrackX = newX;
+		this.trackIntermediateX = newX;
 		this.onDragUpdate(newX);
 	},
 
@@ -129,6 +168,10 @@ Timeline.prototype = {
 	},
 
 	setSlide: function(index, immediately) {
+		if (index === undefined) {
+			return;
+		}
+
 		var self = this;
 
 		this.trackX = -index * this.trackItemWidth;

@@ -19,10 +19,12 @@ AnimatingNumber.prototype = {
 			return;
 		}
 
-		this.animated = true;
 		if (!$element) {
 			return;
 		}
+
+		this.animated = true;
+
 		var text = $element.text();
 		var hasDot = text.split('.').length > 1;
 		var hasComma;
@@ -75,7 +77,7 @@ AnimatingNumber.prototype = {
 			1,
 			{ value: 0 },
 			{
-				delay: 0.0,
+				delay: 0.25,
 				value: value,
 				ease: useDelimiter ? Power4.easeInOut : null,
 				onUpdate: () => updateText(),
