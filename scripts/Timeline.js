@@ -9,6 +9,9 @@ function Timeline() {
 	this.$value2 = this.$container.find('[data-timeline-item-value2-container]');
 	this.$prevButton = this.$container.find('[data-timeline-prev]');
 	this.$nextButton = this.$container.find('[data-timeline-next]');
+	this.$linesContainer = this.$container.find('[data-timeline-lines]');
+	this.$lines = this.$linesContainer.children();
+	this.$background = this.$container.find('[data-timeline-background]');
 
 	this.defaultIndex = Number(this.$container.data('timeline-default-index')) || 0;
 
@@ -52,12 +55,18 @@ Timeline.prototype = {
 	},
 
 	turnOnDragging: function() {
+		var self = this;
 		this.$container.addClass('_dragging');
 		TweenMax.to(this.$trackContainer, 0.85, { scale: 0.8 });
-		var self = this;
+
+		this.$lines.each(function(index, element) {
+			var $line = $(element);
+			TweenMax.to($line, 0.65, { scaleY: 0.98 - 0.15 * index, ease: Power1.easeIn });
+		});
 		this.$track.on('mousemove.timeline-dragging', function(e) {
 			self.mouseMoveHandler.call(self, e);
 		});
+		TweenMax.to(this.$background, 1.35, { scale: 1 });
 	},
 
 	turnOffDragging: function() {
@@ -70,8 +79,12 @@ Timeline.prototype = {
 		}
 		this.intermediateIndex = null;
 		this.$container.removeClass('_dragging');
-		TweenMax.to(this.$trackContainer, 0.5, { scale: 1 });
+		TweenMax.to(this.$trackContainer, 0.35, { scale: 1 });
+		this.$lines.each(function(index, element) {
+			TweenMax.to($(element), 0.5, { scaleY: 1 });
+		});
 		this.$track.off('.timeline-dragging');
+		TweenMax.to(this.$background, 0.35, { scale: 1.15, ease: Power1.easeOut });
 	},
 
 	mouseMoveHandler: function(e) {
@@ -122,9 +135,16 @@ Timeline.prototype = {
 
 		TweenMax.to(this.$track, immediately ? 0 : 0.35, {
 			x: this.trackX,
-			onComplete: function() {
+			ease: Power1.easeOut,
+			onComplete: function() {},
+		});
+
+		TweenMax.to(this.$carousel, immediately ? 0 : 0.5, {
+			x: this.carouselX,
+			ease: Power1.easeOut,
+			delay: 0.15,
+			onStart: function() {
 				self.setCurrentCarouselItem(index);
-				TweenMax.to(self.$carousel, immediately ? 0 : 0.35, { x: self.carouselX });
 			},
 		});
 
