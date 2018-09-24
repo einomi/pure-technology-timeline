@@ -50,6 +50,9 @@
 .timeline-slider {
 	position: relative;
 	color: #fff;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
 	user-select: none;
 	overflow: hidden;
 }
@@ -170,7 +173,7 @@
 }
 
 .track-line__value-inner {
-    display: inline-block;
+	display: inline-block;
 	will-change: transform;
 	transition: transform 0.5s ease-out;
 }
