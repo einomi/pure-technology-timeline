@@ -39,12 +39,10 @@
 	height: 655px;
 }
 
-@media screen and (max-width: 1100px) {
-	.interactive-timeline__slider {
-		display: flex;
-		align-items: center;
-		height: 490px;
-	}
+@media screen and (max-width: 1100px), (max-height: 900px)  {
+    .interactive-timeline__slider {
+        height: 550px;
+    }
 }
 
 .timeline-slider {
@@ -61,7 +59,7 @@
 	content: '';
 	display: block;
 	position: absolute;
-	top: 0;
+	top: -1px;
 	left: 0;
 	width: 0;
 	height: 0;
@@ -70,7 +68,7 @@
 	z-index: 1;
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1100px), (max-height: 900px)  {
 	.timeline-slider:before {
 		border-top-width: 98px;
 	}
@@ -128,7 +126,7 @@
 	will-change: transform;
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1100px), (max-height: 900px)  {
 	.timeline-slider__line {
 		height: 120px;
 	}
@@ -178,7 +176,7 @@
 	transition: transform 0.5s ease-out;
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1100px), (max-height: 900px)  {
 	.track-line__value {
 		font-size: 150px;
 		width: 410px;
@@ -207,7 +205,7 @@
 	transform-origin: center center;
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1100px), (max-height: 900px)  {
 	.track-line__value:before {
 		width: 9px;
 		height: 9px;
@@ -240,7 +238,7 @@
 	padding-bottom: 31px;
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1100px), (max-height: 900px)  {
 	.timeline-slider__info-item {
 		font-size: 45px;
 	}
@@ -315,7 +313,7 @@
 .timeline-slider__next:before {
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1100px), (max-height: 900px)  {
 	.timeline-slider__prev,
 	.timeline-slider__next {
 		width: 49px;
@@ -343,7 +341,7 @@
 	will-change: transform;
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1100px), (max-height: 900px)  {
 	.timeline-carousel__inner {
 		height: 135px;
 	}
@@ -386,7 +384,7 @@
 	font-size: 24px;
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1100px), (max-height: 900px)  {
 	.timeline-carousel__item-text {
 		font-size: 18px;
 	}
